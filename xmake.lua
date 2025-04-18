@@ -15,13 +15,7 @@ if not has_config("vs_runtime") then
     set_runtimes("MD")
 end
 
-option("target_type")
-    set_default("server")
-    set_showmenu(true)
-    set_values("server", "client")
-option_end()
-
-target("AccessHiddenItem") -- Change this to your mod name.
+target("AccessHiddenItem")
     add_rules("@levibuildscript/linkrule")
     add_rules("@levibuildscript/modpacker")
     add_cxflags(
@@ -35,14 +29,18 @@ target("AccessHiddenItem") -- Change this to your mod name.
         "/w44738",
         "/w45204"
     )
-    add_defines("NOMINMAX", "UNICODE")
+    add_defines(
+        "NOMINMAX",
+        "UNICODE",
+        "_HAS_CXX23=1"
+    )
     add_packages(
         "levilamina",
         "gmlib"
     )
-    set_exceptions("none") -- To avoid conflicts with /EHa.
+    set_exceptions("none")
     set_kind("shared")
-    set_languages("c++20")
+    set_languages("cxx20")
     add_headerfiles("src/**.h")
     add_files("src/**.cpp")
     add_includedirs("src")

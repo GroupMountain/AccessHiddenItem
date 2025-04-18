@@ -3,7 +3,7 @@
 #include <vector>
 
 struct Config {
-    int version = 0;
+    int version = 1;
 
     std::vector<std::string> items = {
         "minecraft:filled_map",
@@ -130,4 +130,10 @@ struct Config {
         "minecraft:item.campfire",
         "minecraft:bubble_column",
     };
+
+    // clang-format off
+    std::vector<std::string> snbts = {
+        "{\"Count\":1b,\"Name\":\"minecraft:wooden_sword\",\"WasPickedUp\":0b,\"tag\":{\"Unbreakable\":1b,\"display\":{\"Lore\":[\"§r§9不可破坏§r\",\"§r§bb§6y§a:§g小小的子沐呀 §cQQ§a:§p1756150362§r\"],\"Name\":\"§r§l§e子§a沐§b的§d桃木剑§r\"},\"ench\":[{\"id\":9s,\"lvl\":32767s},{\"id\":13s,\"lvl\":32767s},{\"id\":14s,\"lvl\":100s},{\"id\":17s,\"lvl\":32767s},{\"id\":12s,\"lvl\":32767s},{\"id\":26s,\"lvl\":32767s},{\"id\":10s,\"lvl\":32767s},{\"id\":11s,\"lvl\":32767s}],\"keep_on_death\":1b}}"
+    };
+    // clang-format on
 };

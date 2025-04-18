@@ -1,6 +1,5 @@
 #pragma once
-#include "Config.h"
-#include "ll/api/mod/NativeMod.h"
+#include <ll/api/mod/NativeMod.h>
 
 namespace gm {
 
@@ -21,7 +20,6 @@ public:
 
 private:
     ll::mod::NativeMod&   mSelf;
-    std::optional<Config> mConfig;
 };
 
 } // namespace gm

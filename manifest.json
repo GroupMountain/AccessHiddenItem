@@ -1,8 +1,9 @@
 {
     "name": "${modName}",
     "entry": "${modFile}",
-    "version": "1.0.0",
+    "version": "${modVersion}",
     "type": "native",
+    "author": "GroupMountain",
     "dependencies": [
         {
             "name": "GMLIB"
