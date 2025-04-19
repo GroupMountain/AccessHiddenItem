@@ -15,32 +15,24 @@ Entry& Entry::getInstance() {
 bool Entry::load() { return true; }
 
 bool Entry::enable() {
-    auto                     path = getSelf().getConfigDir() / u8"config.json";
-    Config                   config;
-    std::vector<CompoundTag> snbts = {};
+    auto   path = getSelf().getConfigDir() / u8"config.json";
+    Config config;
     try {
         ll::config::loadConfig(config, path);
-        std::erase_if(config.snbts, [&](std::string const& snbt) -> bool {
-            if (auto res = CompoundTag::fromSnbt(snbt); res) {
-                snbts.push_back(*res);
-                return false;
-            }
-            return true;
-        });
     } catch (...) {}
     ll::config::saveConfig(config, path);
 
     auto& registry = gmlib::mod::CustomCreativeItemRegistry::getInstance();
-    for (auto& item : config.items) {
-        registry.registerCreativeItem(ItemInstance(item), CreativeItemCategory::Nature);
-    }
-    for (auto& snbt : config.snbts) {
+    for (auto& item : config.creative_items) {
+        CompoundTag* nbt = nullptr;
+        if (auto userdata = ::CompoundTag::fromSnbt(item.nbt)) {
+            nbt = new CompoundTag(*userdata);
+        }
         registry.registerCreativeItem(
-            ItemInstance::fromTag(*CompoundTag::fromSnbt(snbt)),
-            CreativeItemCategory::Nature
+            ItemInstance(item.type, 1, 0, std::move(nbt)),
+            CreativeItemCategory((int)item.creative_category)
         );
     }
-
     getSelf().getLogger().info("AccessHiddenItem Loaded!");
     getSelf().getLogger().info("Author: GroupMountain");
     return true;

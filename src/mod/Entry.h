@@ -19,7 +19,7 @@ public:
     bool disable();
 
 private:
-    ll::mod::NativeMod&   mSelf;
+    ll::mod::NativeMod& mSelf;
 };
 
 } // namespace gm
