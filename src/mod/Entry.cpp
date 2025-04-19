@@ -31,8 +31,10 @@ bool Entry::enable() {
 
     for (auto& item : config.creative_items) {
         CompoundTag* nbt = nullptr;
-        if (auto userdata = ::CompoundTag::fromSnbt(item.nbt)) {
-            nbt = new ::CompoundTag(*userdata);
+        if (item.nbt) {
+            if (auto userdata = ::CompoundTag::fromSnbt(*item.nbt)) {
+                nbt = new ::CompoundTag(*userdata);
+            }
         }
         registry.registerCreativeItem(
             ::ItemInstance(item.type, 1, 0, std::move(nbt)),
