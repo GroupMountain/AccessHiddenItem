@@ -23,14 +23,21 @@ bool Entry::enable() {
     ll::config::saveConfig(config, path);
 
     auto& registry = gmlib::mod::CustomCreativeItemRegistry::getInstance();
+
+    for (auto& group : config.extra_groups) {
+        registry
+            .registerCreativeGroup(group.name, ::ItemInstance(group.icon), ::CreativeItemCategory((int)group.category));
+    }
+
     for (auto& item : config.creative_items) {
         CompoundTag* nbt = nullptr;
         if (auto userdata = ::CompoundTag::fromSnbt(item.nbt)) {
-            nbt = new CompoundTag(*userdata);
+            nbt = new ::CompoundTag(*userdata);
         }
         registry.registerCreativeItem(
-            ItemInstance(item.type, 1, 0, std::move(nbt)),
-            CreativeItemCategory((int)item.creative_category)
+            ::ItemInstance(item.type, 1, 0, std::move(nbt)),
+            ::CreativeItemCategory((int)item.category),
+            item.group
         );
     }
     getSelf().getLogger().info("AccessHiddenItem Loaded!");
